@@ -40,5 +40,5 @@ This is a work in progress, the data is gathered daily from the European Union C
 """
 tags = ['covid-19', 'coronavirus', 'covid', 'quarantine']
 permlink = ''.join(random.choices(string.digits, k=10))
-tx = hv.post(title=title, body=body, author=author, permlink=permlink)
+tx = hv.post(title=title, body=body, author=author, tags=tags, permlink=permlink)
 pprint(tx)
