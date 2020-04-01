@@ -22,7 +22,7 @@ df = read_csv(StringIO(covid_cvs.text))
 sql = df.to_sql("Covid", con=engine, if_exists="replace")
 result = engine.execute(f'SELECT * FROM Covid where dateRep="{covid_day}"')
 data = result.fetchall()
-title = f"European Centre for Disease Prevention and Control Report for Date {covid_day}"
+title = f'European Centre for Disease Prevention and Control Report for Date {covid_day}'
 table = "|: Date Reported :|: Cases :|: Deaths :|: Country / Territory :| \n "
 table += "| ------------- |------:| ------:| :------------------ |  \n "
 for row in data:
@@ -31,11 +31,11 @@ for row in data:
 body = f"""
 # ECDC Automated Report
 This is a work in progress, the data is gathered daily from the European Union CDC (which I find to be more believable than our government at this moment) If you would like to contribute, please feel free to check out the [GitHub Repo here](https://github.com/TheCrazyGM/covid-report).
-## Report for end of day Yesterday - {yesterday}
+## Report for end of day Yesterday - {covid_day}
 ![](https://www.ecdc.europa.eu/profiles/custom/ecdc/themes/anthrax/images/logo-ecdc.png)
 {table}
 """
 tags = ['covid-19', 'coronavirus', 'covid', 'quarantine']
 
-tx = hv.post(title=title, body=body, author=author, permlink=f"Report-{covid_day}")
+tx = hv.post(title=title, body=body, author=author, permlink=f'Report-{covid_day}')
 pprint(tx)
