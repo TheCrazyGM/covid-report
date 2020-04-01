@@ -10,7 +10,7 @@ from pandas import read_csv
 from sqlalchemy import create_engine
 wif = os.environ['STEEM_WIF']
 
-hv = Steem(node="https://anyx.io", keys=wif, nobroadcast=True)
+hv = Steem(node="https://anyx.io", keys=wif)
 w = Wallet(steem_instance=hv)
 author = w.getAccountFromPrivateKey(wif)
 engine = create_engine('sqlite:///covid.db')
@@ -36,6 +36,6 @@ This is a work in progress, the data is gathered daily from the European Union C
 {table}
 """
 tags = ['covid-19', 'coronavirus', 'covid', 'quarantine']
-
-tx = hv.post(title=title, body=body, author=author, permlink=f'Report-{covid_day}')
+permlink = ''.join(random.choices(string.digits, k=10))
+tx = hv.post(title=title, body=body, author=author, permlink=permlink)
 pprint(tx)
