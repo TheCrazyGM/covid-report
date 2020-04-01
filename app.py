@@ -26,7 +26,7 @@ sql = df.to_sql("Covid", con=engine, if_exists="replace")
 result = engine.execute(f'SELECT * FROM Covid where dateRep="{covid_day}"')
 data = result.fetchall()
 title = f'European Centre for Disease Prevention and Control Report for Date {covid_day}'
-table = "|: Date Reported :|: Cases :|: Deaths :|: Country / Territory :| \n "
+table = "| Date Reported | Cases | Deaths | Country / Territory | \n "
 table += "| ------------- |------:| ------:| :------------------ |  \n "
 for row in data:
     table += f'|{row["dateRep"]} | {row["cases"]}| {row["deaths"]}| {row["countriesAndTerritories"]} | \n'
