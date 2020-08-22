@@ -11,10 +11,10 @@ from beem.wallet import Wallet
 from pandas import read_csv
 from sqlalchemy import create_engine
 
-wif = os.environ['STEEM_WIF']
+wif = os.environ['STEEM_POSTING']
 
-hv = Steem(node="https://anyx.io", keys=wif)
-w = Wallet(steem_instance=hv)
+stm = Steem(node="https://api.steemit.com", keys=wif)
+w = Wallet(steem_instance=stm)
 author = w.getAccountFromPrivateKey(wif)
 engine = create_engine('sqlite:///covid.db')
 covid_cvs = requests.get(
@@ -38,7 +38,8 @@ This is a work in progress, the data is gathered daily from the European Union C
 ![](https://www.ecdc.europa.eu/profiles/custom/ecdc/themes/anthrax/images/logo-ecdc.png)
 {table}
 """
-tags = ['covid-19', 'coronavirus', 'covid', 'quarantine']
+tags = ['coronavirus', 'covid', 'covid-19', 'quarantine']
 permlink = ''.join(random.choices(string.digits, k=10))
-tx = hv.post(title=title, body=body, author=author, tags=tags, permlink=permlink)
+tx = stm.post(title=title, body=body, author=author,
+              tags=tags, permlink=permlink)
 pprint(tx)
