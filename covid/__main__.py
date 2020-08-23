@@ -38,7 +38,7 @@ def main():
     table += "| ------------- |------:| ------:| :------------------ |  \n "
     table += ''.join(f'|{row["dateRep"]} | {row["cases"]}| {row["deaths"]}| {row["countriesAndTerritories"]} | \n' for row in data)
     beneficiaries = [
-        {'account': 'ecoinstats', 'weight': 5000},
+        {'account': author, 'weight': 5000},
         {'account': 'thecrazygm', 'weight': 5000}
     ]
 
@@ -46,12 +46,13 @@ def main():
 
 This is a work in progress, the data is gathered daily from the European Union CDC
 
-If you would like to contribute, please feel free to check out the [GitHub Repo here](https://github.com/TheCrazyGM/covid-report).
-
 ![ECDC](https://www.ecdc.europa.eu/profiles/custom/ecdc/themes/anthrax/images/logo-ecdc.png)
 ## Report for end of day Yesterday - {covid_day}
 
-{table}"""
+{table}
+
+If you would like to contribute, please feel free to check out the [GitHub Repo here](https://github.com/TheCrazyGM/covid-report) or contact @thecrazygm.
+"""
 
     tags = ['coronavirus', 'covid', 'covid-19', 'quarantine']
     tx = stm.post(title=title, body=body, author=author,
