@@ -13,7 +13,7 @@ from sqlalchemy import create_engine
 
 wif = os.environ['STEEM_POSTING']
 
-hv = Hive(node="https://anyx.io", keys=wif, nobroadcast=True)
+hv = Hive(node="https://anyx.io", keys=wif, nobroadcast=False)
 w = Wallet(steem_instance=hv)
 author = w.getAccountFromPrivateKey(wif)
 engine = create_engine('sqlite:///covid.db')
