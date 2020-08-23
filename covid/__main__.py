@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 wif = os.environ['STEEM_WIF']
-stm = Steem(node="https://api.steemit.com", keys=wif, nobroadcast=True)
+stm = Steem(node="https://api.steemit.com", keys=wif, nobroadcast=False)
 w = Wallet(blockchain_instance=stm)
 author = w.getAccountFromPrivateKey(wif)
 logging.debug(author)
@@ -56,7 +56,7 @@ If you would like to contribute, please feel free to check out the [GitHub Repo 
 
     tags = ['coronavirus', 'covid', 'covid-19', 'quarantine']
     tx = stm.post(title=title, body=body, author=author,
-                  tags=tags, beneficiaries=beneficiaries, permlink=None)
+                  tags=tags, beneficiaries=beneficiaries, permlink=None, self_vote=True)
     logging.info(title)
     logging.debug(tx)
 
