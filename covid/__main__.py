@@ -14,7 +14,7 @@ from sqlalchemy import create_engine
 wif = os.environ['STEEM_POSTING']
 
 hv = Hive(node="https://anyx.io", keys=wif, nobroadcast=False)
-w = Wallet(steem_instance=hv)
+w = Wallet(blockchain_instance=hv)
 author = w.getAccountFromPrivateKey(wif)
 engine = create_engine('sqlite:///covid.db')
 covid_cvs = requests.get(
@@ -45,10 +45,8 @@ def main():
     {table}
     """
     tags = ['coronavirus', 'covid', 'covid-19', 'quarantine']
-    permlink = ''.join(random.choices(
-        string.ascii_letters + string.digits, k=10))
     tx = hv.post(title=title, body=body, author=author,
-                 tags=tags, permlink=permlink)
+                 tags=tags, permlink=None)
     pprint(tx)
 
 
