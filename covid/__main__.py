@@ -13,7 +13,7 @@ from sqlalchemy import create_engine
 
 wif = os.environ['STEEM_POSTING']
 
-hv = Hive(node="https://anyx.io", keys=wif, nobroadcast=False)
+hv = Hive(node="https://api.steemit.com", keys=wif, nobroadcast=False)
 w = Wallet(blockchain_instance=hv)
 author = w.getAccountFromPrivateKey(wif)
 engine = create_engine('sqlite:///covid.db')
@@ -29,18 +29,22 @@ data = result.fetchall()
 
 def main():
     title = f'European Centre for Disease Prevention and Control Report for Date {covid_day}'
+
     table = "| Date Reported | Cases | Deaths | Country / Territory | \n "
     table += "| ------------- |------:| ------:| :------------------ |  \n "
     table += ''.join(f'|{row["dateRep"]} | {row["cases"]}| {row["deaths"]}| {row["countriesAndTerritories"]} | \n' for row in data)
 
-    body = f"""
-    #ECDC Automated Report
-    This is a work in progress, the data is gathered daily from the European Union CDC 
-    If you would like to contribute, please feel free to check out the [GitHub Repo here](https://github.com/TheCrazyGM/covid-report).
-    ##Report for end of day Yesterday - {covid_day}
-    ![](https://www.ecdc.europa.eu/profiles/custom/ecdc/themes/anthrax/images/logo-ecdc.png)
-    {table}
-    """
+    body = f"""# ECDC Automated Report
+
+This is a work in progress, the data is gathered daily from the European Union CDC
+
+If you would like to contribute, please feel free to check out the [GitHub Repo here](https://github.com/TheCrazyGM/covid-report).
+
+![ECDC](https://www.ecdc.europa.eu/profiles/custom/ecdc/themes/anthrax/images/logo-ecdc.png)
+## Report for end of day Yesterday - {covid_day}
+
+{table}"""
+
     tags = ['coronavirus', 'covid', 'covid-19', 'quarantine']
     tx = hv.post(title=title, body=body, author=author,
                  tags=tags, permlink=None)
