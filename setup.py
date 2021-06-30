@@ -9,7 +9,7 @@ requires = [
 
 setup(
     name="covid-report",
-    version="0.1.0",
+    version="0.1.2",
     description="Generate a Daily Coronavirus Report",
     url="https://lootkit.games/",
     author="Michael Garcia",
