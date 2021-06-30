@@ -1,10 +1,8 @@
 import logging
 import os
-import random
-import string
-from datetime import date, datetime, timedelta
+
+from datetime import datetime, timedelta
 from io import StringIO
-from pprint import pprint
 
 import requests
 from beem.steem import Steem
@@ -22,7 +20,9 @@ w = Wallet(blockchain_instance=stm)
 author = w.getAccountFromPrivateKey(wif)
 logging.debug(author)
 engine = create_engine("sqlite:///covid.db")
-covid_cvs = requests.get("https://opendata.ecdc.europa.eu/covid19/casedistribution/csv")
+covid_cvs = requests.get(
+    "https://opendata.ecdc.europa.eu/covid19/nationalcasedeath_eueea_daily_ei/csv/data.csv"
+)
 yesterday = datetime.now() + timedelta(days=-1)
 covid_day = yesterday.strftime("%d/%m/%Y")
 df = read_csv(StringIO(covid_cvs.text))
