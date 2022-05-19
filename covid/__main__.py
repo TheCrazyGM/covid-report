@@ -15,7 +15,7 @@ logging.basicConfig(
 )
 
 wif = os.environ["STEEM_WIF"]
-stm = Steem(node="https://api.steemit.com", keys=wif, nobroadcast=False)
+stm = Steem(node="https://api.steemit.com", keys=wif, nobroadcast=False, )
 w = Wallet(blockchain_instance=stm)
 author = w.getAccountFromPrivateKey(wif)
 logging.debug(author)
@@ -34,8 +34,8 @@ data = result.fetchall()
 def main():
     title = f"European Centre for Disease Prevention and Control Report for Date {covid_day}"
 
-    table = "| Date Reported | Cases | Deaths | Country / Territory | \n "
-    table += "| ------------- |------:| ------:| :------------------ |  \n "
+    table = "| Date Reported | Cases | Deaths | Country / Territory | \n " + "| ------------- |------:| ------:| :------------------ |  \n "
+
     table += "".join(
         f'|{row["dateRep"]} | {row["cases"]}| {row["deaths"]}| {row["countriesAndTerritories"]} | \n'
         for row in data

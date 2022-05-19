@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 covid.db
 .vscode/settings.json
+Pipfile.lock
